@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024"><rect width="1024" height="1024" rx="224" fill="#C6F05A"/>
+<g transform="translate(512 345) scale(.6) translate(-512 -540)">
+<circle cx="512" cy="540" r="330" fill="#B4E04A"/>
+<g transform="rotate(14 610 470)">
+  <rect x="440" y="240" width="350" height="460" rx="72" fill="#0D111C" opacity=".12" transform="translate(0 22)"/>
+  <rect x="440" y="240" width="350" height="460" rx="72" fill="#FFFFFF"/>
+  <rect x="510" y="330" width="210" height="34" rx="17" fill="#D9DDEA"/>
+  <rect x="510" y="400" width="150" height="34" rx="17" fill="#D9DDEA"/>
+</g>
+<g transform="rotate(-9 420 550)">
+  <rect x="235" y="300" width="380" height="490" rx="80" fill="#0D111C" opacity=".14" transform="translate(0 26)"/>
+  <rect x="235" y="300" width="380" height="490" rx="80" fill="#FF7A66"/>
+  <circle cx="365" cy="540" r="30" fill="#141826"/><circle cx="485" cy="540" r="30" fill="#141826"/>
+  <circle cx="375" cy="528" r="10" fill="#fff"/><circle cx="495" cy="528" r="10" fill="#fff"/>
+  <path d="M378 612 Q425 662 472 612" fill="none" stroke="#141826" stroke-width="24" stroke-linecap="round"/>
+  <ellipse cx="318" cy="612" rx="32" ry="20" fill="#FFB8A8"/><ellipse cx="532" cy="612" rx="32" ry="20" fill="#FFB8A8"/>
+</g>
+<path d="M790 196 C800 246 812 258 862 268 C812 278 800 290 790 340 C780 290 768 278 718 268 C768 258 780 246 790 196Z" fill="#FFFFFF"/>
+<path d="M232 196 C237 222 243 228 269 233 C243 238 237 244 232 270 C227 244 221 238 195 233 C221 228 227 222 232 196Z" fill="#0D111C" opacity=".22"/>
+</g>
+<text x="512" y="712" text-anchor="middle" font-family="Noto Sans CJK JP" font-weight="900" font-size="132" letter-spacing="-4" fill="#0D111C">フラッシュ</text>
+<text x="512" y="858" text-anchor="middle" font-family="Noto Sans CJK JP" font-weight="900" font-size="132" letter-spacing="2" fill="#0D111C">カード</text>
+</svg>
