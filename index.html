@@ -7,11 +7,11 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="mobile-web-app-capable" content="yes">
-<title>かつようカード</title>
+<title>フラッシュカード</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" type="image/png" href="icons/favicon.png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-<meta name="apple-mobile-web-app-title" content="かつよう">
+<meta name="apple-mobile-web-app-title" content="フラッシュカード">
 <script>
 window.PWA = true;
 if ('serviceWorker' in navigator) window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => {}); });
@@ -20,7 +20,7 @@ if ('serviceWorker' in navigator) window.addEventListener('load', () => { naviga
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&family=Nunito:wght@700;800;900&family=Noto+Sans+Devanagari:wght@500;700&family=Noto+Sans+Bengali:wght@500;700&family=Noto+Naskh+Arabic:wght@500;700&family=Noto+Sans+Myanmar:wght@500;700&display=swap" rel="stylesheet">
 <style>
-/* かつようカード（学習者用）v2 — dark, game-like; light "paper" cards on a night background.
+/* フラッシュカード（学習者用）v2 — dark, game-like; light "paper" cards on a night background.
    One column for phones; category colour (coral / sun / mint / sky) drives each screen; lime = the main action. */
 :root{
   color-scheme:dark;
@@ -360,6 +360,92 @@ body.no-tab .tabbar{display:none}
 .toast .tr{font-size:12px;color:var(--lime-ink);opacity:.8}
 
 .enter{animation:rise .3s cubic-bezier(.2,.9,.3,1)}
+
+/* ===== はじめの 画面（ログイン） ===== */
+body.is-login{background:radial-gradient(90% 50% at 50% 0%,rgba(198,240,90,.13),transparent 70%),radial-gradient(70% 40% at 0% 100%,rgba(114,180,255,.12),transparent 70%),var(--bg)}
+body.is-login #app{padding-bottom:calc(env(safe-area-inset-bottom) + 24px)}
+.login{display:flex;flex-direction:column;min-height:calc(100vh - 40px)}
+.lg-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.lang-chip{display:inline-flex;align-items:center;gap:7px;height:42px;padding:0 15px 0 11px;border-radius:99px;background:var(--s1);font-weight:700;font-size:15px}
+.lang-chip svg{width:20px;height:20px;color:var(--lime)}
+.mbtn svg{width:22px;height:22px}
+.mbtn.on{color:var(--lime)}
+.mbtn.on svg{animation:bob 1.6s ease-in-out infinite}
+.iconbtn.sm{width:40px;height:40px;border-radius:13px}
+.hbar .mbtn{margin-left:auto}
+.ptop .mbtn{margin-left:2px}
+.lg-hero{text-align:center;padding:22px 0 8px}
+.lg-cards{position:relative;width:150px;height:128px;margin:0 auto}
+.lc{position:absolute;left:50%;top:50%;width:76px;height:98px;margin:-49px 0 0 -38px;border-radius:20px;box-shadow:0 10px 24px rgba(0,0,0,.35)}
+.lc.c3{background:var(--noun);transform:translateX(34px) rotate(16deg)}
+.lc.c2{background:var(--lime);transform:translateX(-34px) rotate(-14deg)}
+.lc.c1{background:var(--verb);display:grid;place-items:center;transform:rotate(-3deg);animation:float 3.2s ease-in-out infinite}
+.lc.c1 svg{width:54px;height:54px}
+.spark{position:absolute;width:10px;height:10px;border-radius:3px;background:var(--iadj);transform:rotate(45deg);opacity:.9}
+.spark.s1{left:4px;top:10px}.spark.s2{right:2px;top:2px;background:var(--naadj);width:8px;height:8px}.spark.s3{right:12px;bottom:4px;background:var(--lime);width:7px;height:7px}
+.lg-title{margin-top:14px;font-size:clamp(28px,9.4vw,38px);white-space:nowrap;font-weight:800;letter-spacing:.02em;line-height:1.15}
+.lg-title span{display:inline-block}
+.lg-sub{margin-top:6px;font-size:15px;font-weight:700;color:var(--mu)}
+.lg-sub .tr{font-size:12px;margin-top:2px}
+.lg-panel{margin-top:auto;padding:20px 16px 14px;border-radius:28px;background:var(--s1);box-shadow:0 -10px 40px rgba(0,0,0,.25)}
+.lp-h{font-size:21px;font-weight:800;line-height:1.3;margin:0 4px 12px}
+.lp-h .tr{font-size:12px}
+.whos{display:flex;flex-direction:column;gap:8px}
+.who{display:flex;align-items:center;gap:12px;width:100%;min-height:66px;padding:10px 12px;border-radius:20px;background:var(--s2);text-align:left}
+.who .chev{color:var(--mu2)}
+.who.add{margin-top:8px;background:transparent;border:2px dashed var(--s3)}
+.who-t{flex:1;min-width:0;line-height:1.25}
+.who-t b{display:block;font-size:18px;font-weight:800;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.who-t > span:not(.tr){font-size:12px;color:var(--mu);font-weight:700}
+.who-lv{font-family:var(--f-lat);font-weight:900;font-size:13px;color:var(--lime);background:rgba(198,240,90,.12);padding:4px 9px;border-radius:99px}
+.ava{--s:44px;width:var(--s);height:var(--s);flex:none;border-radius:50%;display:grid;place-items:center;background:var(--a);color:#141826;
+  font-weight:800;font-size:calc(var(--s) * .44);line-height:1;font-family:var(--f-lat),var(--f-ja)}
+.ava.plus{background:var(--s3);color:var(--lime)}
+.ava.plus svg{width:22px;height:22px}
+.fld{display:block;margin-bottom:12px;flex:1;min-width:0}
+.fl{display:block;font-size:14px;font-weight:800;margin:0 4px 6px;line-height:1.3}
+.fl .tr{display:inline;margin-left:6px;font-size:11px}
+.fl em{display:block;font-style:normal;font-size:11px;color:var(--mu2);font-weight:700}
+.fld-row{align-items:flex-end}
+.fld input{width:100%;height:54px;padding:0 16px;border-radius:16px;border:2px solid var(--s3);background:var(--bg);color:var(--tx);
+  font:inherit;font-size:19px;font-weight:700;outline:none;transition:border-color .15s}
+.fld input:focus{border-color:var(--lime)}
+.fld-row{display:flex;gap:10px}
+.big-go{margin-top:6px}
+.shake{animation:shake .35s}
+.login .note-s{margin-top:12px}
+.hello{display:flex;align-items:center;gap:8px;font-weight:800;font-size:15px;color:var(--mu);margin-bottom:6px}
+.me-card{display:flex;align-items:center;gap:14px;margin-top:16px;padding:16px;border-radius:22px;background:var(--s1);flex-wrap:wrap}
+.me-t{flex:1;min-width:0;line-height:1.3}
+.me-t b{display:block;font-size:19px;font-weight:800}
+.me-t span{font-size:12px;color:var(--mu);font-weight:700}
+.me-card .btn{flex:1 1 100%;min-height:46px;flex-direction:row;gap:8px;font-size:15px;padding:6px 14px}
+.me-card .btn svg{width:18px;height:18px}
+.li-ic{width:20px;height:20px;float:left;margin:2px 8px 0 0;color:var(--lime)}
+.sub-h{font-size:13px;font-weight:800;color:var(--mu);margin:14px 4px 8px}
+.sub-h .tr{display:inline;margin-left:6px}
+.seg.tracks{display:grid;grid-template-columns:1fr 1fr}
+
+/* さいしょの アニメーション */
+.login.intro .lc.c1{animation:dropIn .7s cubic-bezier(.2,1.4,.4,1) both,float 3.2s ease-in-out 1.2s infinite}
+.login.intro .lc.c2{animation:fanL .6s cubic-bezier(.2,1.3,.4,1) .45s both}
+.login.intro .lc.c3{animation:fanR .6s cubic-bezier(.2,1.3,.4,1) .55s both}
+.login.intro .spark{animation:twinkle .5s ease-out both}
+.login.intro .spark.s1{animation-delay:.9s}.login.intro .spark.s2{animation-delay:1s}.login.intro .spark.s3{animation-delay:1.1s}
+.login.intro .lg-title span{animation:pop .45s cubic-bezier(.2,1.6,.4,1) both;animation-delay:calc(.75s + var(--i) * .06s)}
+.login.intro .lg-sub{animation:rise .5s ease-out 1.3s both}
+.login.intro .lg-top{animation:rise .5s ease-out 1.4s both}
+.login.intro .lg-panel{animation:panelUp .6s cubic-bezier(.2,1,.3,1) 1.45s both}
+.login.intro .who{animation:rise .4s ease-out both;animation-delay:calc(1.75s + var(--d,0) * .07s)}
+@keyframes dropIn{0%{opacity:0;transform:translateY(-140px) rotate(-30deg) scale(.6)}100%{opacity:1;transform:rotate(-3deg)}}
+@keyframes fanL{0%{opacity:0;transform:rotate(0) scale(.7)}100%{opacity:1;transform:translateX(-34px) rotate(-14deg)}}
+@keyframes fanR{0%{opacity:0;transform:rotate(0) scale(.7)}100%{opacity:1;transform:translateX(34px) rotate(16deg)}}
+@keyframes float{0%,100%{transform:rotate(-3deg) translateY(0)}50%{transform:rotate(2deg) translateY(-6px)}}
+@keyframes pop{0%{opacity:0;transform:translateY(18px) scale(.4)}100%{opacity:1;transform:none}}
+@keyframes twinkle{0%{opacity:0;transform:rotate(45deg) scale(0)}70%{transform:rotate(45deg) scale(1.5)}100%{opacity:.9;transform:rotate(45deg) scale(1)}}
+@keyframes panelUp{0%{opacity:0;transform:translateY(60px)}100%{opacity:1;transform:none}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px) rotate(-6deg)}}
+@media (prefers-reduced-motion:reduce){.login *,.mbtn svg{animation:none!important}}
 @keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
@@ -770,7 +856,7 @@ const LANG_ORDER = ['en','zh','ne','bn','vi','ur','my'];
 
 // key | にほんご（やさしい日本語） | en | zh | ne | bn | vi | ur | my
 const UI_SRC = `
-app|かつよう カード|Japanese Conjugation Cards|日语活用卡片|जापानी रूप परिवर्तन कार्ड|জাপানি রূপান্তর কার্ড|Thẻ chia thể tiếng Nhật|جاپانی گردان کارڈ|ဂျပန် ကြိယာပုံစံ ကတ်များ
+app|フラッシュカード|Flashcards|闪卡|फ्ल्यासकार्ड|ফ্ল্যাশকার্ড|Thẻ ghi nhớ|فلیش کارڈ|ဖလက်ရှ်ကတ်
 welcome|ようこそ！|Welcome!|欢迎！|स्वागत छ!|স্বাগতম!|Chào mừng!|خوش آمدید!|ကြိုဆိုပါတယ်!
 pick_lang|ことばを えらんで ください|Choose your language|请选择语言|भाषा छान्नुहोस्|ভাষা বেছে নিন|Chọn ngôn ngữ|اپنی زبان منتخب کریں|ဘာသာစကား ရွေးပါ
 jp_only|にほんごだけ|Japanese only|只用日语|जापानी मात्र|শুধু জাপানি|Chỉ tiếng Nhật|صرف جاپانی|ဂျပန်ဘာသာသာ
@@ -870,6 +956,32 @@ install|ホーム画面[がめん]に ついか|Add to Home Screen|添加到主�
 install_d|アプリの ように すぐ ひらけます|Open it quickly like an app|像应用一样快速打开|एप जस्तै छिटो खोल्नुहोस्|অ্যাপের মতো দ্রুত খুলুন|Mở nhanh như một ứng dụng|ایپ کی طرح جلدی کھولیں|အက်ပ်လို မြန်မြန် ဖွင့်နိုင်ပါတယ်
 install_ios|下[した]の 共有[きょうゆう]ボタン（□↑）→「ホーム画面[がめん]に追加[ついか]」|Tap Share (□↑) at the bottom → "Add to Home Screen"|点击下方的分享（□↑）→「添加到主屏幕」|तलको Share (□↑) → "Add to Home Screen" थिच्नुहोस्|নিচের Share (□↑) → "Add to Home Screen" চাপুন|Nhấn Chia sẻ (□↑) bên dưới → "Thêm vào MH chính"|نیچے Share (□↑) → "Add to Home Screen" دبائیں|အောက်က Share (□↑) → "Add to Home Screen" ကိုနှိပ်ပါ
 later|あとで|Later|以后|पछि|পরে|Để sau|بعد میں|နောက်မှ
+tagline|日本語[にほんご]の かたちを たのしく おぼえよう|Learn Japanese word forms the fun way|轻松愉快地记住日语词形|जापानी शब्दका रूपहरू रमाइलो गरी सिकौँ|মজা করে জাপানি শব্দের রূপ শিখি|Học các thể của tiếng Nhật thật vui|جاپانی الفاظ کی شکلیں مزے سے سیکھیں|ဂျပန် စကားလုံးပုံစံတွေကို ပျော်ပျော်ရွှင်ရွှင် လေ့လာကြစို့
+login_who|だれが つかいますか？|Who is studying?|谁来学习？|को पढ्दै हुनुहुन्छ?|কে পড়ছে?|Ai đang học?|کون پڑھ رہا ہے؟|ဘယ်သူ လေ့လာမလဲ?
+new_user|あたらしい ひと|New user|新用户|नयाँ प्रयोगकर्ता|নতুন ব্যবহারকারী|Người dùng mới|نیا صارف|အသုံးပြုသူ အသစ်
+your_name|あなたの なまえは？|What's your name?|你叫什么名字？|तपाईंको नाम के हो?|আপনার নাম কী?|Bạn tên là gì?|آپ کا نام کیا ہے؟|သင့်နာမည် ဘာလဲ?
+name|なまえ|Name|名字|नाम|নাম|Tên|نام|နာမည်
+cls|クラス|Class|班级|कक्षा|ক্লাস|Lớp|کلاس|အတန်း
+sno|学籍[がくせき]番号[ばんごう]|Student ID|学号|विद्यार्थी नम्बर|ছাত্র আইডি|Mã số sinh viên|طالب علم نمبر|ကျောင်းသား နံပါတ်
+optional|なくても いいです|optional|可不填|ऐच्छिक|ঐচ্ছিক|không bắt buộc|اختیاری|မဖြည့်လည်း ရပါတယ်
+go_start|はじめる|Start|开始|सुरु गर्नुहोस्|শুরু করুন|Bắt đầu|شروع کریں|စတင်မယ်
+need_name|なまえを 入[い]れて ください|Please enter your name|请输入名字|कृपया नाम लेख्नुहोस्|অনুগ্রহ করে নাম লিখুন|Vui lòng nhập tên|براہ کرم نام لکھیں|နာမည် ထည့်ပေးပါ
+login_note|なまえと きろくは この スマホだけに のこります|Your name and records stay only on this phone|名字和记录只保存在这部手机上|नाम र रेकर्ड यो फोनमा मात्र रहन्छ|নাম ও রেকর্ড শুধু এই ফোনে থাকে|Tên và thành tích chỉ lưu trên điện thoại này|نام اور ریکارڈ صرف اسی فون میں رہتے ہیں|နာမည်နဲ့ မှတ်တမ်းကို ဒီဖုန်းမှာပဲ သိမ်းပါတယ်
+user|ユーザー|User|用户|प्रयोगकर्ता|ব্যবহারকারী|Người dùng|صارف|အသုံးပြုသူ
+switch_user|ユーザーを かえる|Switch user|切换用户|प्रयोगकर्ता बदल्नुहोस्|ব্যবহারকারী বদলান|Đổi người dùng|صارف تبدیل کریں|အသုံးပြုသူ ပြောင်းမယ်
+delete_user|この ユーザーを けす|Delete this user|删除这个用户|यो प्रयोगकर्ता मेटाउनुहोस्|এই ব্যবহারকারী মুছুন|Xóa người dùng này|یہ صارف مٹائیں|ဒီအသုံးပြုသူကို ဖျက်မယ်
+delete_user_q|この ユーザーと きろくを ぜんぶ けしますか？|Delete this user and all records?|要删除这个用户和全部记录吗？|यो प्रयोगकर्ता र सबै रेकर्ड मेटाउने?|এই ব্যবহারকারী ও সব রেকর্ড মুছবেন?|Xóa người dùng này và toàn bộ thành tích?|کیا یہ صارف اور سارا ریکارڈ مٹانا ہے؟|ဒီအသုံးပြုသူနဲ့ မှတ်တမ်းအားလုံးကို ဖျက်မလား?
+back|もどる|Back|返回|पछाडि|ফিরে যান|Quay lại|واپس|နောက်သို့
+bgm|BGM（音楽[おんがく]）|Background music|背景音乐|पृष्ठभूमि सङ्गीत|ব্যাকগ্রাউন্ড মিউজিক|Nhạc nền|پس منظر موسیقی|နောက်ခံ ဂီတ
+bgm_track|曲[きょく]|Song|曲子|गीत|গান|Bài nhạc|دھن|သီချင်း
+bgm_warm|ほのぼの|Cozy|温馨|न्यानो|উষ্ণ|Ấm áp|گرمجوش|နွေးထွေး
+bgm_upbeat|わくわく|Upbeat|欢快|उत्साही|উচ্ছল|Sôi động|پرجوش|တက်ကြွ
+bgm_calm|ゆったり|Relaxed|悠闲|शान्त|শান্ত|Thư thái|پرسکون|အေးဆေး
+bgm_focus|集中[しゅうちゅう]|Focus|专注|ध्यान|মনোযোগ|Tập trung|توجہ|အာရုံစူးစိုက်
+vol|音[おと]の 大[おお]きさ|Volume|音量|आवाज|ভলিউম|Âm lượng|آواز|အသံ အတိုးအကျယ်
+vol_s|小[ちい]さい|Low|小|कम|কম|Nhỏ|کم|တိုး
+vol_l|大[おお]きい|High|大|धेरै|বেশি|Lớn|زیادہ|ကျယ်
+bgm_hint|音[おと]が 出[で]ない ときは、スマホの マナーモードを きって ください|If you hear nothing, turn off silent mode|如果没有声音，请关闭手机静音模式|आवाज नआए फोनको साइलेन्ट मोड बन्द गर्नुहोस्|শব্দ না এলে ফোনের সাইলেন্ট মোড বন্ধ করুন|Nếu không nghe thấy, hãy tắt chế độ im lặng|آواز نہ آئے تو فون کا سائلنٹ موڈ بند کریں|အသံ မကြားရရင် ဖုန်းရဲ့ အသံပိတ်မုဒ်ကို ပိတ်ပါ
 memo_local|きろくは この スマホの ブラウザに のこります|Your records are saved in this phone's browser|记录保存在这部手机的浏览器里|रेकर्ड यो फोनको ब्राउजरमा बस्छ|রেকর্ড এই ফোনের ব্রাউজারে থাকে|Thành tích được lưu trong trình duyệt của điện thoại này|ریکارڈ اسی فون کے براؤزر میں محفوظ رہتا ہے|မှတ်တမ်းကို ဒီဖုန်းရဲ့ ဘရောက်ဇာမှာ သိမ်းထားပါတယ်
 `;
 const UI = {};
@@ -1057,7 +1169,124 @@ MEAN_SRC.trim().split('\n').forEach(line => {
 /* 読み上げ用の文字（ブラウザの声が読みまちがえやすい漢字を、ふりがなに置きかえたもの） */
 const SAY = {"行きます":"いきます","行く":"いく","入ります":"はいります","入る":"はいる","着ます":"きます","着る":"きる","降ります":"おります","降りる":"おりる","開けます":"あけます","開ける":"あける","行って":"いって","入って":"はいって","着て":"きて","降りて":"おりて","開けて":"あけて","行った":"いった","入った":"はいった","着た":"きた","降りた":"おりた","開けた":"あけた","行かない":"いかない","入らない":"はいらない","着ない":"きない","降りない":"おりない","開けない":"あけない","行かなかった":"いかなかった","入らなかった":"はいらなかった","着なかった":"きなかった","降りなかった":"おりなかった","開けなかった":"あけなかった","行きません":"いきません","入りません":"はいりません","着ません":"きません","降りません":"おりません","開けません":"あけません","行きました":"いきました","入りました":"はいりました","着ました":"きました","降りました":"おりました","開けました":"あけました","行きませんでした":"いきませんでした","入りませんでした":"はいりませんでした","着ませんでした":"きませんでした","降りませんでした":"おりませんでした","開けませんでした":"あけませんでした","行きましょう":"いきましょう","入りましょう":"はいりましょう","着ましょう":"きましょう","降りましょう":"おりましょう","開けましょう":"あけましょう","行こう":"いこう","入ろう":"はいろう","着よう":"きよう","降りよう":"おりよう","開けよう":"あけよう","行ける":"いける","入れる":"はいれる","着られる":"きられる","降りられる":"おりられる","開けられる":"あけられる","行かれる":"いかれる","入られる":"はいられる","行かせる":"いかせる","入らせる":"はいらせる","着させる":"きさせる","降りさせる":"おりさせる","開けさせる":"あけさせる","出させる":"でさせる","来させる":"こさせる","行かされる":"いかされる","入らされる":"はいらされる","着させられる":"きさせられる","降りさせられる":"おりさせられる","開けさせられる":"あけさせられる","出させられる":"でさせられる","来させられる":"こさせられる","行け":"いけ","待て":"まて","入れ":"はいれ","着ろ":"きろ","降りろ":"おりろ","開けろ":"あけろ","出ろ":"でろ","行くな":"いくな","入るな":"はいるな","着るな":"きるな","降りるな":"おりるな","開けるな":"あけるな","行けば":"いけば","入れば":"はいれば","着れば":"きれば","降りれば":"おりれば","開ければ":"あければ","行ったら":"いったら","入ったら":"はいったら","着たら":"きたら","降りたら":"おりたら","開けたら":"あけたら","行ったり":"いったり","入ったり":"はいったり","着たり":"きたり","降りたり":"おりたり","開けたり":"あけたり","行かないで":"いかないで","入らないで":"はいらないで","着ないで":"きないで","降りないで":"おりないで","開けないで":"あけないで","行かなければ":"いかなければ","入らなければ":"はいらなければ","着なければ":"きなければ","降りなければ":"おりなければ","開けなければ":"あけなければ","ドアが 開きます":"ドアが あきます","ドアを 開けます":"ドアを あけます","開きます":"あきます","車が 止まります":"車が とまります","車を 止めます":"車を とめます","止まります":"とまります","止めます":"とめます","服が 汚れます":"服が よごれます","服を 汚します":"服を よごします","汚れます":"よごれます","汚します":"よごします","日にちが 決まります":"ひにちが 決まります","日にちを 決めます":"ひにちを 決めます","時計が 直ります":"時計が なおります","時計を 直します":"時計を なおします","直ります":"なおります","直します":"なおします","ボタンが 外れます":"ボタンが はずれます","ボタンを 外します":"ボタンを はずします","外れます":"はずれます","外します":"はずします","荷物が 入ります":"荷物が はいります","ご存じです":"ごぞんじです","存じます":"ぞんじます","お書きになります":"おかきになります","お入りになります":"おはいりになります","お降りになります":"おおりになります","お書きします":"おかきします","お開けします":"おあけします","行かれます":"いかれます","入られます":"はいられます","着られます":"きられます","降りられます":"おりられます","開けられます":"あけられます","長ければ":"ながければ","上手です":"じょうずです","上手だ":"じょうずだ","下手です":"へたです","下手だ":"へただ","上手で":"じょうずで","下手で":"へたで","上手だった":"じょうずだった","下手だった":"へただった","上手じゃない":"じょうずじゃない","下手じゃない":"へたじゃない","上手じゃなかった":"じょうずじゃなかった","下手じゃなかった":"へたじゃなかった","上手じゃありません":"じょうずじゃありません","下手じゃありません":"へたじゃありません","上手でした":"じょうずでした","下手でした":"へたでした","上手じゃなくて":"じょうずじゃなくて","下手じゃなくて":"へたじゃなくて","上手だったら":"じょうずだったら","下手だったら":"へただったら","上手なら":"じょうずなら","下手なら":"へたなら","上手に":"じょうずに","下手に":"へたに","上手な":"じょうずな","下手な":"へたな","上手になります":"じょうずになります","下手になります":"へたになります","上手すぎます":"じょうずすぎます","下手すぎます":"へたすぎます","日本人です":"にほんじんです","日本人だ":"にほんじんだ","日本人だった":"にほんじんだった","日本人じゃない":"にほんじんじゃない","日本人じゃなかった":"にほんじんじゃなかった","日本人じゃありません":"にほんじんじゃありません","日本人でした":"にほんじんでした","日本人じゃなくて":"にほんじんじゃなくて","日本人だったら":"にほんじんだったら","日本人なら":"にほんじんなら"};
 
-/* ===== かつようカード（学習者用）v2 ===== */
+/* ===== BGM（Web Audio で その場で 作る 音楽。音のファイルは 使わない） ===== */
+let AC = null;
+function getAC(){
+  if (!AC){ try { AC = new (window.AudioContext || window.webkitAudioContext)(); } catch(e){ AC = null; } }
+  if (AC && AC.state === 'suspended') { try { AC.resume(); } catch(e){} }
+  return AC;
+}
+const BGM = (() => {
+  const mtof = m => 440 * Math.pow(2, (m - 69) / 12);
+  // 1小節＝16きざみ。prog：[根音(MIDI), [和音の音程]] を 1小節ずつ
+  const TRACKS = {
+    warm:  {bpm:92,  swing:0,   prog:[[48,[0,4,7,11]],[45,[0,3,7,10]],[41,[0,4,7,9]],[43,[0,4,7,10]]],
+            bass:'x.......x...x...', kick:'x.......x.......', snare:'', hat:'..x...x...x...x.', arp:'x.x.x.x.x.x.x.x.', arpSeq:[0,1,2,3,2,1,2,1], pad:.035, bell:.10, keys:''},
+    upbeat:{bpm:116, swing:0,   prog:[[41,[0,4,7,11]],[43,[0,4,7,10]],[40,[0,3,7,10]],[45,[0,3,7,10]]],
+            bass:'x..x..x.x..x..x.', kick:'x...x...x...x...', snare:'....x.......x...', hat:'..x...x...x...x.', arp:'xxxxxxxxxxxxxxxx', arpSeq:[0,1,2,3,4,3,2,1], pad:.025, bell:0, keys:''},
+    calm:  {bpm:70,  swing:0,   prog:[[41,[0,4,7,11]],[40,[0,3,7,10]],[38,[0,3,7,10]],[36,[0,4,7,11]]],
+            bass:'x...............', kick:'', snare:'', hat:'', arp:'x.......x.......', arpSeq:[0,2,1,3], pad:.05, bell:.28, keys:''},
+    focus: {bpm:78,  swing:.16, prog:[[38,[0,3,7,10,14]],[43,[0,4,10,14]],[36,[0,4,7,11,14]],[45,[0,3,7,10]]],
+            bass:'x.....x...x.....', kick:'x......x..x.....', snare:'....x.......x...', hat:'.x.x.x.x.x.x.x.x', arp:'', arpSeq:[], pad:.018, bell:0, keys:'x.........x.....'},
+  };
+  const PENTA = [0, 2, 4, 7, 9];
+  let ctx = null, out = null, timer = null, step = 0, nextT = 0, cur = null, noise = null, vol = .5, ducked = false, playing = false, bellNote = 72;
+
+  function noiseBuf(){
+    if (noise) return noise;
+    noise = ctx.createBuffer(1, ctx.sampleRate * .5, ctx.sampleRate);
+    const d = noise.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+    return noise;
+  }
+  function env(g, t, a, peak, dec){ g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(peak, t + a); g.gain.exponentialRampToValueAtTime(.0001, t + a + dec); }
+  function osc(type, f, t, a, peak, dec, dest, detune){
+    const o = ctx.createOscillator(), g = ctx.createGain();
+    o.type = type; o.frequency.setValueAtTime(f, t); if (detune) o.detune.setValueAtTime(detune, t);
+    env(g, t, a, peak, dec); o.connect(g); g.connect(dest || out); o.start(t); o.stop(t + a + dec + .05);
+  }
+  function pad(notes, t, len){
+    const lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 1100; lp.connect(out);
+    for (const m of notes){
+      for (const dt of [-7, 7]){
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.type = 'triangle'; o.frequency.value = mtof(m); o.detune.value = dt;
+        g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(cur.pad, t + .5);
+        g.gain.setValueAtTime(cur.pad, t + len - .4); g.gain.exponentialRampToValueAtTime(.0001, t + len + .3);
+        o.connect(g); g.connect(lp); o.start(t); o.stop(t + len + .4);
+      }
+    }
+  }
+  function kick(t){
+    const o = ctx.createOscillator(), g = ctx.createGain();
+    o.frequency.setValueAtTime(110, t); o.frequency.exponentialRampToValueAtTime(42, t + .12);
+    env(g, t, .004, .38, .22); o.connect(g); g.connect(out); o.start(t); o.stop(t + .3);
+  }
+  function hiss(t, type, f, peak, dec){
+    const s = ctx.createBufferSource(), fl = ctx.createBiquadFilter(), g = ctx.createGain();
+    s.buffer = noiseBuf(); fl.type = type; fl.frequency.value = f; env(g, t, .002, peak, dec);
+    s.connect(fl); fl.connect(g); g.connect(out); s.start(t); s.stop(t + dec + .05);
+  }
+  function schedule(i, t){
+    const bar = Math.floor(i / 16) % cur.prog.length, s = i % 16, [root, iv] = cur.prog[bar];
+    const spb = 60 / cur.bpm / 4;
+    if (s === 0 && cur.pad) pad(iv.slice(0, 4).map(x => root + 12 + x), t, spb * 16);
+    if (cur.bass[s] === 'x') { osc('sine', mtof(root - 12), t, .01, .32, .5); osc('triangle', mtof(root - 12), t, .01, .06, .3); }
+    if (cur.kick[s] === 'x') kick(t);
+    if (cur.snare[s] === 'x') { hiss(t, 'bandpass', 1800, .12, .16); osc('sine', 190, t, .002, .06, .08); }
+    if (cur.hat[s] === 'x') hiss(t, 'highpass', 7000, .05, .045);
+    if (cur.arp[s] === 'x' && cur.arpSeq.length){
+      const k = cur.arpSeq[(i >> (cur.arp === 'xxxxxxxxxxxxxxxx' ? 0 : 1)) % cur.arpSeq.length];
+      const m = root + 24 + iv[k % iv.length] + (k >= iv.length ? 12 : 0);
+      osc('triangle', mtof(m), t, .005, .07, .32);
+    }
+    if (cur.keys[s] === 'x') for (const x of iv) { osc('sine', mtof(root + 12 + x), t, .01, .05, 1.3); osc('triangle', mtof(root + 12 + x), t, .01, .015, .6); }
+    if (cur.bell && s % 2 === 0 && Math.random() < cur.bell){
+      // ペンタトニックで ゆっくり 歩く メロディー
+      const pool = []; for (let o = 60; o <= 84; o += 12) for (const p of PENTA) pool.push(o + p);
+      let j = pool.indexOf(pool.reduce((a, b) => Math.abs(b - bellNote) < Math.abs(a - bellNote) ? b : a));
+      j = Math.max(0, Math.min(pool.length - 1, j + [-2, -1, 1, 2][Math.floor(Math.random() * 4)]));
+      bellNote = pool[j];
+      osc('sine', mtof(bellNote), t, .005, .07, 1.4); osc('sine', mtof(bellNote) * 2.01, t, .005, .015, .5);
+    }
+  }
+  function tick(){
+    if (!playing || !out) return;
+    const spb = 60 / cur.bpm / 4;
+    while (nextT < ctx.currentTime + .15){
+      schedule(step, nextT);
+      const sw = cur.swing ? (step % 2 === 0 ? 1 + cur.swing : 1 - cur.swing) : 1;
+      nextT += spb * sw; step++;
+    }
+  }
+  function level(){ return vol * (ducked ? .3 : 1); }
+  return {
+    TRACKS: Object.keys(TRACKS),
+    play(name, v){
+      ctx = getAC(); if (!ctx) return;
+      this.stop(true);
+      cur = TRACKS[name] || TRACKS.warm; if (v != null) vol = v;
+      const comp = ctx.createDynamicsCompressor(); comp.connect(ctx.destination);
+      out = ctx.createGain(); out.gain.setValueAtTime(.0001, ctx.currentTime);
+      out.gain.exponentialRampToValueAtTime(Math.max(.0001, level()), ctx.currentTime + 1.2);
+      out.connect(comp);
+      step = 0; nextT = ctx.currentTime + .08; playing = true;
+      timer = setInterval(tick, 30); tick();
+    },
+    stop(fast){
+      playing = false; clearInterval(timer); timer = null;
+      if (out && ctx){
+        const o = out; try { o.gain.cancelScheduledValues(ctx.currentTime); o.gain.setValueAtTime(o.gain.value, ctx.currentTime); o.gain.exponentialRampToValueAtTime(.0001, ctx.currentTime + (fast ? .15 : .8)); } catch(e){}
+        setTimeout(() => { try { o.disconnect(); } catch(e){} }, fast ? 300 : 1000);
+      }
+      out = null;
+    },
+    setVolume(v){ vol = v; if (out && ctx) out.gain.setTargetAtTime(Math.max(.0001, level()), ctx.currentTime, .15); },
+    duck(on){ ducked = on; if (out && ctx) out.gain.setTargetAtTime(Math.max(.0001, level()), ctx.currentTime, .12); },
+    get playing(){ return playing; },
+  };
+})();
+
+/* ===== フラッシュカード（学習者用）v2 ===== */
 const $ = (s, el = document) => el.querySelector(s);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const CAT_IDS = ['verb','iadj','naadj','noun'];
@@ -1109,11 +1338,32 @@ const stepById = id => { for (const c of CAT_IDS){ const i = STEPS[c].findIndex(
 /* ---------- 保存 ---------- */
 const KEY = 'katsuyo-learner-v1';
 const SPEED = {slow:{tts:0.7}, normal:{tts:0.9}, fast:{tts:1.1}};
-let S = {installHide:false, lang:null, script:'furi', meaning:true, sound:true, speed:'normal', voice:'', trUI:true, xp:0, learned:{}, days:{}, log:{}, last:null, prefs:{}};
+const S_DEF = {installHide:false, lang:null, script:'furi', meaning:true, sound:true, speed:'normal', voice:'', trUI:true, xp:0, learned:{}, days:{}, log:{}, last:null, prefs:{}};
+let S = JSON.parse(JSON.stringify(S_DEF));
+/* この スマホの 共通せってい（ユーザー・ことば・BGM） */
+const DKEY = 'katsuyo-device-v1';
+const PKEY = id => KEY + ':' + id;
+const AVATAR = ['#FF7A66','#FFC94D','#4FE0AE','#72B4FF','#C6F05A','#C79BFF'];
+const VOL = {s:.3, m:.55, l:.85};
+let DEV = {lang:null, profiles:[], current:null, bgm:true, track:'warm', vol:'m'};
+function loadDev(){
+  try { const d = JSON.parse(localStorage.getItem(DKEY) || 'null'); if (d && typeof d === 'object') Object.assign(DEV, d); } catch(e){}
+  if (!Array.isArray(DEV.profiles)) DEV.profiles = [];
+  if (!DEV.lang && !DEV.profiles.length){ // 前の バージョン（ユーザー 1人）の ことばを ひきつぐ
+    try { const old = JSON.parse(localStorage.getItem(KEY) || 'null'); if (old && old.lang) DEV.lang = old.lang; } catch(e){}
+  }
+  if (DEV.current && !DEV.profiles.some(u => u.id === DEV.current)) DEV.current = null;
+  if (!BGM.TRACKS.includes(DEV.track)) DEV.track = 'warm';
+  if (!VOL[DEV.vol]) DEV.vol = 'm';
+}
+function saveDev(){ try { localStorage.setItem(DKEY, JSON.stringify(DEV)); } catch(e){} }
+const ME = () => DEV.profiles.find(u => u.id === DEV.current) || null;
+function readProfile(id){ try { return JSON.parse(localStorage.getItem(PKEY(id)) || 'null'); } catch(e){ return null; } }
 function load(){
-  let d = null;
-  try { d = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch(e){}
+  S = JSON.parse(JSON.stringify(S_DEF));
+  const d = DEV.current ? readProfile(DEV.current) : null;
   if (d && typeof d === 'object') Object.assign(S, d);
+  if (!S.lang && DEV.lang) S.lang = DEV.lang;
   S.learned = S.learned || {}; S.days = S.days || {}; S.log = S.log || {};
   if (d && !d.speed && d.rate) S.speed = d.rate < 0.8 ? 'slow' : 'normal';
   if (!SPEED[S.speed]) S.speed = 'normal';
@@ -1122,7 +1372,7 @@ function load(){
   S.prefs = {};
   for (const c of CAT_IDS) S.prefs[c] = Object.assign({mode:'card', count:10, groups:[1,2,3], custom:[]}, p[c] || {});
 }
-function save(){ try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e){} }
+function save(){ if (!DEV.current) return; try { localStorage.setItem(PKEY(DEV.current), JSON.stringify(S)); } catch(e){} }
 
 const dayKey = (d = new Date()) => d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
 function bump(c, ok){
@@ -1148,7 +1398,7 @@ function progressOf(cat, forms){ const ids = idsOf(cat, forms); let n = 0; for (
 const catProgress = cat => progressOf(cat, allForms(cat));
 
 /* ---------- 文字の表示 ---------- */
-const LANG = () => LANGS.find(l => l.id === S.lang);
+const LANG = () => LANGS.find(l => l.id === DEV.lang);
 const rubyHTML = (base, reading) => '<ruby>' + esc(base) + '<rt>' + esc(reading) + '</rt></ruby>';
 function rb(s){
   return String(s).split(/([㐀-鿿々〆ヶ]+\[[^\]]+\])/).map(p => {
@@ -1187,6 +1437,10 @@ const IC = {
   gear:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.8l1.6 2.3 2.7-.7.7 2.7 2.6 1-.9 2.6 1.6 2.3-2.3 1.6.3 2.8-2.8.2-1.2 2.5-2.5-1.2L9.7 21l-1.2-2.5-2.8-.2.3-2.8L3.7 14l1.6-2.3-.9-2.6 2.6-1 .7-2.7 2.7.7z"/></svg>',
   ok:'<svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="16" fill="#4FE0AE"/><path d="M10.5 18.5l5 5 10-11" fill="none" stroke="#06231A" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg>',
   ng:'<svg viewBox="0 0 36 36"><circle cx="18" cy="18" r="16" fill="#FF6B7F"/><path d="M12 12l12 12M24 12L12 24" stroke="#2A0710" stroke-width="3.4" stroke-linecap="round"/></svg>',
+  music:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5" fill="currentColor"/><circle cx="16.5" cy="16" r="2.5" fill="currentColor"/></svg>',
+  musicOff:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V6l10-2v12" opacity=".45"/><circle cx="6.5" cy="18" r="2.5" fill="currentColor" opacity=".45"/><circle cx="16.5" cy="16" r="2.5" fill="currentColor" opacity=".45"/><path d="M3.5 3.5l17 17"/></svg>',
+  globe:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.6 2.4 3.6 5.3 3.6 8.5s-1 6.1-3.6 8.5c-2.6-2.4-3.6-5.3-3.6-8.5s1-6.1 3.6-8.5z"/></svg>',
+  user:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20c1.2-3.8 4-5.6 7.5-5.6s6.3 1.8 7.5 5.6"/></svg>',
   tap:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11V5.5a1.5 1.5 0 013 0V11m0-1.5a1.5 1.5 0 013 0V11m0-.5a1.5 1.5 0 013 0V15a6 6 0 01-6 6h-.6a6 6 0 01-4.6-2.2L4.5 15.6a1.6 1.6 0 012.4-2.1L9 15"/></svg>',
 };
 const star = on => '<svg viewBox="0 0 48 48"><path d="M24 4.5l5.8 12 13.2 1.8-9.6 9.2 2.4 13.1L24 34.3l-11.8 6.3 2.4-13.1L5 18.3l13.2-1.8z" fill="' + (on ? '#FFC94D' : '#29344F') + '" stroke-linejoin="round"/></svg>';
@@ -1198,12 +1452,10 @@ function ring(p, size, stroke, color){
 }
 
 /* ---------- 音 ---------- */
-let AC = null;
 function tone(seq){
   if (!S.sound) return;
   try {
-    AC = AC || new (window.AudioContext || window.webkitAudioContext)();
-    if (AC.state === 'suspended') AC.resume();
+    const AC = getAC(); if (!AC) return;
     const t0 = AC.currentTime + .01;
     for (const [f, st, du, type = 'sine', vol = .16] of seq){
       const o = AC.createOscillator(), g = AC.createGain();
@@ -1245,6 +1497,8 @@ function speak(text){
     if (!VOICE) pickVoice();
     const u = new SpeechSynthesisUtterance(text);
     u.lang = 'ja-JP'; if (VOICE) u.voice = VOICE; u.rate = SPEED[S.speed].tts;
+    u.onstart = () => BGM.duck(true);
+    u.onend = u.onerror = () => BGM.duck(false);
     speechSynthesis.speak(u);
   } catch(e){}
 }
@@ -1267,15 +1521,76 @@ function installCard(){
 }
 
 /* ---------- 画面 ---------- */
-let V = {name:'home'};
+let V = {name:'login'};
 let P = null;
 
-function go(name, extra){ closeSheet(true); V = Object.assign({name}, extra || {}); render(); window.scrollTo(0, 0); }
+/* ---------- ページの 移動（スマホの「もどる」に 対応。#home などの ハッシュを つかう） ---------- */
+const TABS = ['home','record','settings'];
+const HN = {home:'home', record:'rec', settings:'set', lang:'lang', login:'login', play:'play', result:'result'};
+const hashOf = v => v.name === 'cat' ? 'cat-' + v.cat : HN[v.name];
+function parseHash(h){
+  if (/^cat-/.test(h)){ const c = h.slice(4); return CAT_IDS.includes(c) ? {name:'cat', cat:c} : null; }
+  const n = Object.keys(HN).find(k => HN[k] === h);
+  return n ? {name:n} : null;
+}
+let ST = [], EXPECT = null;      // ST = このアプリが つくった 履歴（ハッシュ）の 写し
+const curHash = () => { try { return decodeURIComponent(location.hash.slice(1)); } catch(e){ return location.hash.slice(1); } };
+function pushHash(h){
+  if (curHash() === h){ ST[ST.length - 1] = h; return; }
+  ST.push(h); EXPECT = h; location.hash = h;
+}
+function replaceHash(h){
+  if (ST.length) ST[ST.length - 1] = h; else ST.push(h);
+  if (curHash() === h) return;
+  try { history.replaceState(history.state, '', '#' + h); }
+  catch(e){ EXPECT = h; try { location.replace('#' + h); } catch(e2){} }
+}
+function goBackTo(h){ ST.pop(); EXPECT = h; history.back(); }
+function go(name, extra, opt){
+  opt = opt || {};
+  closeSheet(true);
+  const nv = Object.assign({name}, extra || {}), h = hashOf(nv);
+  if (ST.length > 1 && ST[ST.length - 2] === h) goBackTo(h);
+  else if (opt.replace || V.name === 'play' || V.name === 'result' || V.name === 'login' ||
+           (TABS.includes(V.name) && TABS.includes(name) && V.name !== 'home')) replaceHash(h);
+  else pushHash(h);
+  V = nv; render(); window.scrollTo(0, 0);
+}
+// UIの「もどる」ボタン：ほんとうの 履歴を もどる
+function goBack(fallback){
+  if (ST.length > 1){ const h = ST[ST.length - 2]; goBackTo(h); routeTo(h); }
+  else go(fallback || 'home');
+}
+function routeTo(h){
+  let nv = parseHash(h);
+  if (!nv || ((nv.name === 'play' || nv.name === 'result') && !P)) nv = {name:'home'};
+  if (nv.name === 'lang') nv.from = V.name === 'lang' ? V.from : (ST.includes('login') && !DEV.current ? 'login' : 'settings');
+  closeSheet(true); closeModal();
+  V = nv; render(); window.scrollTo(0, 0);
+  const h2 = hashOf(V); if (h2 !== h && EXPECT === null) replaceHash(h2);
+}
+window.addEventListener('hashchange', () => {
+  const h = curHash();
+  if (EXPECT !== null && h === EXPECT){ EXPECT = null; return; }
+  EXPECT = null;
+  const isBack = ST.length > 1 && ST[ST.length - 2] === h;
+  if (isBack) ST.pop(); else ST.push(h);
+  const here = hashOf(V);
+  // まず ひらいている まど（シート・かくにん）を とじる
+  if (!$('#modal').hidden){ closeModal(); if (isBack && here !== h) pushHash(here); return; }
+  if (SH){ closeSheet(); if (isBack && here !== h) pushHash(here); return; }
+  if (V.name === 'play' && P && h !== 'play'){ pushHash('play'); confirmBox('quit_q', quitPlay); return; }
+  if (h === here) return;
+  routeTo(h);
+});
+
 function render(){
-  if (!S.lang && V.name !== 'lang') V = {name:'lang', first:true};
+  if (!DEV.lang && V.name !== 'lang') V = {name:'lang', first:true};
+  else if (DEV.lang && !DEV.current && !['lang','login'].includes(V.name)) V = {name:'login'};
   document.body.dataset.cat = V.cat || (P && P.cat) || 'verb';
-  document.body.classList.toggle('no-tab', !['home','record','settings'].includes(V.name));
-  const html = ({lang:viewLang, home:viewHome, cat:viewCat, play:viewPlay, result:viewResult, record:viewRecord, settings:viewSettings})[V.name]();
+  document.body.classList.toggle('no-tab', !TABS.includes(V.name));
+  document.body.classList.toggle('is-login', V.name === 'login');
+  const html = ({login:viewLogin, lang:viewLang, home:viewHome, cat:viewCat, play:viewPlay, result:viewResult, record:viewRecord, settings:viewSettings})[V.name]();
   const app = $('#app'); app.innerHTML = html;
   app.firstElementChild && app.firstElementChild.classList.add('enter');
   renderTabs();
@@ -1296,12 +1611,73 @@ function fit(el){
 }
 function keepScroll(fn){ const y = window.scrollY; fn(); window.scrollTo(0, y); }
 
+/* --- はじめの 画面（ログイン） --- */
+const musicBtn = cls => '<button class="iconbtn press mbtn' + (DEV.bgm ? ' on' : '') + (cls ? ' ' + cls : '') + '" data-act="music" aria-label="BGM" aria-pressed="' + DEV.bgm + '">' + (DEV.bgm ? IC.music : IC.musicOff) + '</button>';
+const initial = n => { const c = Array.from(String(n).trim())[0] || '?'; return esc(c.toUpperCase()); };
+const avatar = (u, size) => '<span class="ava" style="--a:' + (u.color || AVATAR[0]) + (size ? ';--s:' + size + 'px' : '') + '">' + initial(u.name) + '</span>';
+function profLevel(id){ const d = readProfile(id); return levelOf(d && typeof d.xp === 'number' ? d.xp : 0).n; }
+function viewLogin(){
+  const L = LANG(), intro = V.intro ? ' intro' : '';
+  const title = 'フラッシュカード'.split('').map((ch, i) => '<span style="--i:' + i + '">' + ch + '</span>').join('');
+  const logo = '<div class="lg-cards" aria-hidden="true">' +
+      '<span class="lc c3"></span><span class="lc c2"></span>' +
+      '<span class="lc c1"><svg viewBox="0 0 40 40"><circle cx="14" cy="18" r="2.6" fill="#141826"/><circle cx="26" cy="18" r="2.6" fill="#141826"/><path d="M15 25q5 4.4 10 0" stroke="#141826" stroke-width="2.6" fill="none" stroke-linecap="round"/></svg></span>' +
+      '<i class="spark s1"></i><i class="spark s2"></i><i class="spark s3"></i></div>';
+  let panel;
+  if (V.form || !DEV.profiles.length){
+    panel = '<h2 class="lp-h">' + J('your_name') + tr('your_name') + '</h2>' +
+      '<label class="fld"><span class="fl">' + J('name') + tr('name') + '</span><input id="f-name" maxlength="20" autocomplete="off" enterkeyhint="go"></label>' +
+      '<div class="fld-row"><label class="fld"><span class="fl">' + J('cls') + ' <em>' + J('optional') + '</em></span><input id="f-cls" maxlength="12" autocomplete="off" enterkeyhint="go"></label>' +
+      '<label class="fld"><span class="fl">' + J('sno') + ' <em>' + J('optional') + '</em></span><input id="f-no" maxlength="16" autocomplete="off" inputmode="text" enterkeyhint="go"></label></div>' +
+      '<button class="btn lime big-go press" data-act="mkuser">' + T('go_start') + '</button>' +
+      (DEV.profiles.length ? '<button class="btn ghost press" data-act="loginlist" style="margin-top:8px">' + T('back') + '</button>' : '');
+  } else {
+    const us = DEV.profiles.map((u, i) => '<button class="who press" data-act="pickuser" data-id="' + u.id + '" style="--d:' + i + '">' + avatar(u) +
+      '<span class="who-t"><b>' + esc(u.name) + '</b><span>' + [u.cls, u.no].filter(Boolean).map(esc).join('・') + '</span></span>' +
+      '<span class="who-lv">Lv.' + profLevel(u.id) + '</span>' + IC.chev + '</button>').join('');
+    panel = '<h2 class="lp-h">' + J('login_who') + tr('login_who') + '</h2><div class="whos">' + us + '</div>' +
+      '<button class="who add press" data-act="newuser"><span class="ava plus">' + IC.plus + '</span><span class="who-t"><b>' + J('new_user') + '</b>' + tr('new_user') + '</span></button>';
+  }
+  return '<section class="login' + intro + '">' +
+    '<div class="lg-top"><button class="lang-chip press" data-act="tab" data-v="lang">' + IC.globe + '<span' + (L ? ' lang="' + L.tag + '"' : '') + '>' + esc(L ? L.name : UI.jp_only.ja) + '</span></button>' + musicBtn() + '</div>' +
+    '<div class="lg-hero">' + logo + '<h1 class="lg-title">' + title + '</h1><p class="lg-sub">' + J('tagline') + tr('tagline') + '</p></div>' +
+    '<div class="lg-panel">' + panel + '<p class="note-s">' + J('login_note') + tr('login_note') + '</p></div>' +
+  '</section>';
+}
+function enterUser(id){
+  DEV.current = id; load();
+  const u = ME(); if (u && S.lang && (S.lang === 'none' || LANGS.some(l => l.id === S.lang))) DEV.lang = S.lang;
+  saveDev(); save();
+  startBGM();
+  SFX.good();
+  go('home', {}, {replace:true});
+}
+function makeUser(){
+  const v = id => { const el = $(id); return el ? el.value.trim() : ''; };
+  const name = v('#f-name');
+  if (!name){ toast('need_name'); const el = $('#f-name'); if (el){ el.focus(); el.classList.add('shake'); setTimeout(() => el.classList.remove('shake'), 400); } return; }
+  const id = 'u' + Date.now().toString(36);
+  const first = !DEV.profiles.length;
+  DEV.profiles.push({id, name, cls:v('#f-cls'), no:v('#f-no'), color:AVATAR[DEV.profiles.length % AVATAR.length]});
+  if (first){ // 前の バージョンの きろくを 1人目に うつす
+    try { const old = localStorage.getItem(KEY); if (old){ localStorage.setItem(PKEY(id), old); localStorage.removeItem(KEY); } } catch(e){}
+  }
+  saveDev();
+  enterUser(id);
+}
+
+/* ---------- BGM ---------- */
+function startBGM(){
+  if (!DEV.bgm || document.hidden) return;
+  if (!BGM.playing) BGM.play(DEV.track, VOL[DEV.vol]); else getAC();
+}
+
 /* --- ことば --- */
 function viewLang(){
   const btn = (id, name, tag, rtl) => '<button class="lang-btn press' + (id === 'none' ? ' jp' : '') + '" data-act="lang" data-id="' + id + '"' +
-    (S.lang === id ? ' aria-pressed="true"' : '') + (tag ? ' lang="' + tag + '"' : '') + (rtl ? ' dir="rtl"' : '') + '>' + esc(name) + '</button>';
+    (DEV.lang === id ? ' aria-pressed="true"' : '') + (tag ? ' lang="' + tag + '"' : '') + (rtl ? ' dir="rtl"' : '') + '>' + esc(name) + '</button>';
   return '<section>' +
-    (V.first ? '' : '<div class="hbar"><button class="iconbtn press" data-act="tab" data-v="settings" aria-label="もどる">' + IC.back + '</button></div>') +
+    (V.first ? '' : '<div class="hbar"><button class="iconbtn press" data-act="back" aria-label="もどる">' + IC.back + '</button></div>') +
     '<div class="welcome">' + LOGO + '<h1>' + (V.first ? J('welcome') : J('language')) + '</h1>' +
     '<p>' + J('pick_lang') + '</p><p style="font-family:var(--f-lat);font-size:13px">Choose your language</p></div>' +
     '<div class="langs">' + LANGS.map(l => btn(l.id, l.name, l.tag, l.rtl)).join('') + btn('none', UI.jp_only.ja) + '</div>' +
@@ -1332,8 +1708,8 @@ function viewHome(){
       '<span class="minibar"><i style="width:' + Math.max(pr.n ? 3 : 0, Math.round(pr.p * 100)) + '%"></i></span></span></button>';
   }).join('');
   return '<section>' +
-    '<div class="hbar">' + lvBar() + '<span class="pill' + (st ? '' : ' off') + '">' + IC.flame + st + '</span></div>' +
-    '<div class="hero"><div class="hi">' + T('hi') + '</div>' +
+    '<div class="hbar">' + lvBar() + '<span class="pill' + (st ? '' : ' off') + '">' + IC.flame + st + '</span>' + musicBtn('sm') + '</div>' +
+    '<div class="hero">' + (ME() ? '<div class="hello">' + avatar(ME(), 30) + '<span>' + esc(ME().name) + ' さん</span></div>' : '') + '<div class="hi">' + T('hi') + '</div>' +
       '<div class="today"><div><b>' + td + '</b>' + J('today') + '</div><div><b>' + total + '</b>' + J('learned') + '</div></div>' + cont + '</div>' +
     installCard() +
     '<div class="sect"><h2>' + T('choose_cat') + '</h2></div>' +
@@ -1354,7 +1730,7 @@ function viewCat(){
       IC.chev + '</button>';
   }).join('');
   return '<section>' +
-    '<div class="cat-top"><button class="iconbtn press" data-act="tab" data-v="home" aria-label="もどる">' + IC.back + '</button></div>' +
+    '<div class="cat-top"><button class="iconbtn press" data-act="back" aria-label="もどる">' + IC.back + '</button></div>' +
     '<div class="cat-head"><div class="t"><h1>' + T(c) + '</h1><div class="ring">' + ring(pr.p, 64, 7, 'var(--acc)') + '<b>' + Math.round(pr.p * 100) + '%</b></div></div>' +
       '<div class="sub">' + J('learned') + ' <span class="num">' + pr.n + ' / ' + pr.t + '</span> ' + J('cards') + '</div></div>' +
     '<div class="sect"><h2>' + T('pick_step') + '</h2></div>' +
@@ -1420,9 +1796,11 @@ function startFrom(cat, forms, stepId, title){
 
 /* --- れんしゅう --- */
 function startSession(cat, mode, cards, stepId){
-  P = {cat, mode, stepId, queue: cards.slice(), total: cards.length, done: 0, first: {}, cards: cards.slice(), cur: null, flipped: false, answered: false, opts: null, dragged: false, xp: 0};
+  const backTo = (P && P.backTo) || (V.name === 'home' ? {name:'home'} : {name:'cat', cat});
+  P = {backTo, cat, mode, stepId, queue: cards.slice(), total: cards.length, done: 0, first: {}, cards: cards.slice(), cur: null, flipped: false, answered: false, opts: null, dragged: false, xp: 0};
   nextCard();
 }
+function quitPlay(){ const b = (P && P.backTo) || {name:'home'}; P = null; go(b.name, b.cat ? {cat:b.cat} : null); }
 function nextCard(){
   if (!P.queue.length){ SFX.done(); save(); go('result', {cat:P.cat}); return; }
   P.cur = P.queue.shift(); P.flipped = false; P.answered = false;
@@ -1439,7 +1817,7 @@ function viewPlay(){
   const c = P.cur, pct = Math.round(P.done / P.total * 100);
   const sayBtn = side => '<button class="say press' + (HAS_TTS ? '' : ' muted') + '" data-act="say" data-side="' + side + '" aria-label="' + esc(UI.listen.ja) + '">' + IC.speak + '</button>';
   const top = '<div class="ptop"><button class="iconbtn press" data-act="quit" aria-label="' + esc(UI.quit.ja) + '">' + IC.close + '</button>' +
-    '<div class="ptrack"><i style="width:' + pct + '%"></i></div><div class="pnum">' + Math.min(P.done + 1, P.total) + '/' + P.total + '</div></div>';
+    '<div class="ptrack"><i style="width:' + pct + '%"></i></div><div class="pnum">' + Math.min(P.done + 1, P.total) + '/' + P.total + '</div>' + musicBtn('sm') + '</div>';
   // 表：語 → ↓ → 変える形（大きく）
   const front = '<div class="face front"><div class="face-top"><span></span>' + sayBtn('front') + '</div>' +
     '<div class="face-mid">' + (c.fLead ? '<div class="lead">' + W(c.fLead) + '</div>' : '') +
@@ -1598,6 +1976,8 @@ function viewSettings(){
   const L = LANG();
   return '<section>' +
     '<div class="hbar"><div style="font-size:26px;font-weight:800;line-height:1.2">' + J('settings') + tr('settings') + '</div></div>' +
+    (ME() ? '<div class="me-card">' + avatar(ME(), 52) + '<div class="me-t"><b>' + esc(ME().name) + ' さん</b><span>' + [ME().cls, ME().no].filter(Boolean).map(esc).join('・') + '</span></div>' +
+      '<button class="btn soft press" data-act="logout">' + IC.user + '<span>' + J('switch_user') + '</span></button></div>' : '') +
     '<div class="list" style="margin-top:16px">' +
       '<button class="li press" data-act="tab" data-v="lang"><span class="k">' + T('language') + '</span><span class="v"' + (L ? ' lang="' + L.tag + '"' : '') + '>' + esc(L ? L.name : UI.jp_only.ja) + '</span>' + IC.chev + '</button>' +
       (L ? '<button class="li" data-act="meaning"><span class="k">' + T('meaning') + '</span>' + sw('meaning', S.meaning) + '</button>' +
@@ -1608,8 +1988,15 @@ function viewSettings(){
     '<div class="sect"><h2>' + T('voice') + '</h2></div>' + seg('speed', [['slow','slow'],['normal','normal'],['fast','fast']], S.speed) +
     '<div class="sect"><h2>' + T('voice_pick') + '</h2></div><div class="list"><div class="li col" style="padding-top:4px">' +
       (HAS_TTS ? voiceList() + '<p class="vhint">' + J('voice_hint') + tr('voice_hint') + '</p>' : '<p class="vhint" style="margin-top:4px">' + J('no_tts') + tr('no_tts') + '</p>') + '</div></div>' +
+    '<div class="sect"><h2>' + T('bgm') + '</h2></div>' +
+    '<div class="list"><button class="li" data-act="music"><span class="k">' + IC.music.replace('<svg', '<svg class="li-ic"') + T(DEV.bgm ? 'on' : 'off') + '</span>' + sw('music', DEV.bgm) + '</button></div>' +
+    '<div class="sub-h">' + T('bgm_track') + '</div>' +
+    '<div class="seg tracks">' + BGM.TRACKS.map(t => '<button data-act="track" data-v="' + t + '" aria-pressed="' + (DEV.track === t) + '">' + T('bgm_' + t) + '</button>').join('') + '</div>' +
+    '<div class="sub-h">' + T('vol') + '</div>' + seg('vol', [['s','vol_s'],['m','normal'],['l','vol_l']], DEV.vol) +
+    '<p class="vhint" style="margin:8px 4px 0">' + J('bgm_hint') + tr('bgm_hint') + '</p>' +
     '<div class="list" style="margin-top:14px"><button class="li" data-act="sound"><span class="k">' + T('sound') + '</span>' + sw('sound', S.sound) + '</button>' +
-      '<button class="li press" data-act="reset"><span class="k danger">' + T('reset') + '</span></button></div>' +
+      '<button class="li press" data-act="reset"><span class="k danger">' + T('reset') + '</span></button>' +
+      '<button class="li press" data-act="deluser"><span class="k danger">' + T('delete_user') + '</span></button></div>' +
     '<p class="note-s">' + J('memo_local') + tr('memo_local') + '</p>' +
   '</section>';
 }
@@ -1662,8 +2049,32 @@ function toast(k, ms){
 /* ---------- 操作 ---------- */
 function toggleIn(arr, v){ const i = arr.indexOf(v); if (i >= 0) arr.splice(i, 1); else arr.push(v); }
 const ACT = {
-  tab: a => { if (a.dataset.v === 'lang') go('lang', {first:false}); else go(a.dataset.v); },
-  lang: a => { const first = !S.lang || V.first; S.lang = a.dataset.id; save(); go(first ? 'home' : 'settings'); },
+  tab: a => { if (a.dataset.v === 'lang') go('lang', {first:false, from:V.name}); else go(a.dataset.v); },
+  back: () => goBack(V.name === 'lang' ? (V.from || 'settings') : 'home'),
+  lang: a => {
+    const first = V.first || !DEV.lang;
+    DEV.lang = a.dataset.id; saveDev();
+    if (DEV.current){ S.lang = DEV.lang; save(); }
+    if (first){ go('login', {intro:true}, {replace:true}); return; }
+    goBack(V.from || (DEV.current ? 'settings' : 'login'));
+  },
+  pickuser: a => enterUser(a.dataset.id),
+  newuser: () => { V.form = true; V.intro = false; render(); const el = $('#f-name'); el && el.focus(); },
+  loginlist: () => { V.form = false; V.intro = false; render(); },
+  mkuser: () => makeUser(),
+  logout: () => { DEV.current = null; saveDev(); load(); P = null; go('login', {intro:true}, {replace:true}); },
+  deluser: () => confirmBox('delete_user_q', () => {
+    const id = DEV.current; DEV.profiles = DEV.profiles.filter(u => u.id !== id); DEV.current = null; saveDev();
+    try { localStorage.removeItem(PKEY(id)); } catch(e){}
+    load(); P = null; go('login', {intro:true}, {replace:true});
+  }),
+  music: () => {
+    DEV.bgm = !DEV.bgm; saveDev();
+    if (DEV.bgm) startBGM(); else BGM.stop();
+    keepScroll(render);
+  },
+  track: a => { DEV.track = a.dataset.v; DEV.bgm = true; saveDev(); BGM.play(DEV.track, VOL[DEV.vol]); keepScroll(render); },
+  vol: a => { DEV.vol = a.dataset.v; saveDev(); BGM.setVolume(VOL[DEV.vol]); if (DEV.bgm) startBGM(); keepScroll(render); },
   cat: a => go('cat', {cat:a.dataset.cat}),
   cont: () => { const l = S.last; if (l) startFrom(l.cat, l.forms, l.stepId, l.title); },
   step: a => openStepSheet(V.cat, a.dataset.id),
@@ -1690,7 +2101,7 @@ const ACT = {
   sayans: () => speak(sayText(P.cur, 'back')),
   pick: a => pick(+a.dataset.i),
   next: () => nextCard(),
-  quit: () => confirmBox('quit_q', () => { P = null; go('home'); }),
+  quit: () => confirmBox('quit_q', quitPlay),
   retrywrong: () => startSession(P.cat, P.mode, shuffle(P.cards.filter(c => P.first[c.id] === false)), P.stepId),
   retryall: () => startSession(P.cat, P.mode, shuffle(P.cards), P.stepId),
   nextstep: a => { const st = stepById(a.dataset.id); go('cat', {cat:st.cat}); openStepSheet(st.cat, st.step.id); },
@@ -1720,6 +2131,10 @@ document.addEventListener('click', e => {
   if (f) f(a, e);
 });
 document.addEventListener('keydown', e => {
+  if (e.target && e.target.matches && e.target.matches('input, textarea')){
+    if (e.key === 'Enter' && V.name === 'login'){ e.preventDefault(); makeUser(); }
+    return;
+  }
   if (!$('#modal').hidden){ if (e.key === 'Escape') closeModal(); return; }
   if (SH && e.key === 'Escape'){ closeSheet(); return; }
   if (V.name !== 'play' || !P) return;
@@ -1735,7 +2150,18 @@ document.addEventListener('keydown', e => {
 window.addEventListener('resize', () => document.querySelectorAll('.fit').forEach(fit));
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => document.querySelectorAll('.fit').forEach(fit));
 
+// さいしょの タップで 音楽を はじめる（ブラウザの きまり）
+document.addEventListener('pointerdown', () => { if (DEV.bgm) startBGM(); }, true);
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) BGM.stop(true);
+  else if (DEV.bgm) startBGM();
+});
+
+loadDev();
 load();
+V = DEV.lang ? {name:'login', intro:true} : {name:'lang', first:true};
+ST = [hashOf(V)];
+replaceHash(hashOf(V));
 render();
 
 </script>
